@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ProyectoJavaWeb">
+    <output-path>$PROJECT_DIR$/WebContent/WEB-INF/classes/artifacts/ProyectoJavaWeb</output-path>
+    <root id="archive" name="ProyectoJavaWeb.war">
+      <element id="dir-copy" path="$PROJECT_DIR$/WebContent" />
+    </root>
+  </artifact>
+</component>
