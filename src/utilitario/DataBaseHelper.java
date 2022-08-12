@@ -1,25 +1,31 @@
-package Utilitarios;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-public class DataBaseHealper {
+import java.sql.*;
+
+public class DataBaseHelper {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost/arquitecturajava";
+    private static final String URL = "jdbc:mysql://localhost:3306/arquitecturajava?characterEncoding=utf8";
     private static final String USUARIO = "root";
-    private static final String CLAVE = "java";
+    private static final String CLAVE = "";
+
+    public DataBaseHelper(){
+        super();
+    }
+
+    private Connection conectar() throws ClassNotFoundException, SQLException {   Connection conexion = null;
+        Class.forName(DRIVER);
+        conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+        return conexion;
+    }
     public int modificarRegistro(String consultaSQL) {
+
         Connection conexion = null;
         Statement sentencia = null;
         int filasAfectadas = 0;
         try {
-            Class.forName(DRIVER);
-            conexion = DriverManager.getConnection(URL,
-                    USUARIO, CLAVE);
+            conexion = conectar();
             sentencia = conexion.createStatement();
             filasAfectadas = sentencia.executeUpdate(consultaSQL);
-        } catch (ClassNotFoundException e) {System.out.println("Error driver" + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error driver" + e.getMessage());
         } catch (SQLException e) {
             System.out.println("Error de SQL" + e.getMessage());
         } finally {
@@ -30,7 +36,9 @@ public class DataBaseHealper {
                 try {conexion.close();} catch (SQLException e) {}
             }
         }
+
         return filasAfectadas;
+
     }
     public ResultSet seleccionarRegistros(String consultaSQL) {
         Connection conexion = null;
@@ -39,7 +47,9 @@ public class DataBaseHealper {
         try {
             Class.forName(DRIVER);
             conexion = DriverManager.getConnection(URL,
+
                     USUARIO, CLAVE);
+
             sentencia = conexion.createStatement();
             filas = sentencia.executeQuery(consultaSQL);
         } catch (ClassNotFoundException e) {
@@ -49,8 +59,9 @@ public class DataBaseHealper {
         }
         return filas;
     }
-    public void ver()
-    {
+
+
+    public void ver() {
         System.out.println("HOlaa");
     }
 }
